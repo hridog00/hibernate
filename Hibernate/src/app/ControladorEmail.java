@@ -16,7 +16,8 @@ public class ControladorEmail {
 		String numero = eg.generarNumero(n, emails);
 		emails.add(n);
 		String email = eg.generarEmail(n, numero, t.getEmpresa());
-		modificarExcel(t.getFila(),email,4);
+		ModificarExcell m = new ModificarExcell();
+		m.modificarExcel(t.getFila(),email,4);
 		
 		
 	}

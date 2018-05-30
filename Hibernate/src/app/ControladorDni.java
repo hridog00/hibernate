@@ -10,12 +10,57 @@ import org.xml.sax.SAXException;
 
 import app.XMLController;
 
-public class ControladorDni {
+public class ControladorDni extends main {
+	
 	
 	static ArrayList <String> analizados = new ArrayList <String>();
 	
 	static int XMLCreadoCuentas = 0;
 	static int XMLCreadoDni = 0;
+	
+public static void comprobar() {
+		
+		for(int i=0;i<trabajadores.size();i++) {
+		//	System.out.println("**********************");
+			
+			//
+			String DNI = trabajadores.get(i).getNifnie();
+		//	System.out.println(DNI);
+				
+			
+
+			if(estaVacio(DNI)) {
+			//	System.out.println("ESTA VACIO");
+				
+				generarErrorDni(String.valueOf(trabajadores.get(i).getFila()), trabajadores.get(i).getNombre(), trabajadores.get(i).getApellido1(), trabajadores.get(i).getApellido2(),trabajadores.get(i).getCategoria(), trabajadores.get(i).getEmpresa());
+			}else {
+				
+			if(comprobarDNI(DNI)) {
+				//System.out.println("ESTA BIEN");
+
+				//Si esta bien, no hace nada
+			}else {
+				String dniNuevo=arreglarDNI(DNI);
+				ModificarExcell m =new ModificarExcell();
+				m.modificarExcel(trabajadores.get(i).getFila(), dniNuevo,0);
+				
+				
+			}
+			
+			if(estaDuplicado(DNI)) {
+
+				generarErrorDni(String.valueOf(trabajadores.get(i).getFila()), trabajadores.get(i).getNombre(), trabajadores.get(i).getApellido1(), trabajadores.get(i).getApellido2(),trabajadores.get(i).getCategoria(), trabajadores.get(i).getEmpresa());
+			}else {
+				analizados.add(DNI);
+			}
+					
+			
+			}
+			
+		}
+		
+	}
+	
 	
 	public static void generarErrorDni(String id,String nombre, String ap1, String ap2, String cat, String empresa) {
 		XMLController xml = new XMLController();
