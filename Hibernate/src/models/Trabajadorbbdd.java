@@ -58,7 +58,7 @@ public class Trabajadorbbdd implements java.io.Serializable {
 	private String codigoCuenta;
 	@Column
 	private String iban;
-<<<<<<< HEAD
+
 	
 	@Transient
 	private int fila;
@@ -79,8 +79,7 @@ public class Trabajadorbbdd implements java.io.Serializable {
 	public void setProrrateo(Boolean prorrateo) {
 		this.prorrateo = prorrateo;
 	}
-=======
->>>>>>> branch 'master' of https://github.com/hridog00/hibernate.git
+
 
 	public Trabajadorbbdd() {
 	}
@@ -191,7 +190,6 @@ public class Trabajadorbbdd implements java.io.Serializable {
 		this.iban = iban;
 	}
 
-<<<<<<< HEAD
 	public int getFila() {
 		return fila;
 	}
@@ -226,8 +224,5 @@ public class Trabajadorbbdd implements java.io.Serializable {
 		this.nominas = nominas;
 	}*/
 	
-	
 
-=======
->>>>>>> branch 'master' of https://github.com/hridog00/hibernate.git
 }
