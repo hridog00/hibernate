@@ -42,7 +42,6 @@ public class Trabajadorbbdd implements java.io.Serializable {
 	private String codigoCuenta;
 	@Column
 	private String iban;
-	private Set nominas = new HashSet(0);
 
 	public Trabajadorbbdd() {
 	}
@@ -67,7 +66,6 @@ public class Trabajadorbbdd implements java.io.Serializable {
 		this.fechaAlta = fechaAlta;
 		this.codigoCuenta = codigoCuenta;
 		this.iban = iban;
-		this.nominas = nominas;
 	}
 
 	public Integer getIdTrabajador() {
@@ -156,14 +154,6 @@ public class Trabajadorbbdd implements java.io.Serializable {
 
 	public void setIban(String iban) {
 		this.iban = iban;
-	}
-
-	public Set getNominas() {
-		return this.nominas;
-	}
-
-	public void setNominas(Set nominas) {
-		this.nominas = nominas;
 	}
 
 }
