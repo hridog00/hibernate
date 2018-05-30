@@ -13,10 +13,12 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import models.Categorias;
+import models.Empresas;
+import models.Trabajadorbbdd;
 
 
 
-public class leerExcel {
+public class leerExcel extends main{
 	
 	XSSFWorkbook workbook;
 	public leerExcel() throws IOException {
@@ -30,8 +32,9 @@ public class leerExcel {
 	
 	
 	
-/*	public List<Trabajadorbbdd> getTrabajadores(){
+	public ArrayList<Trabajadorbbdd> getTrabajadores(){
 		
+		ArrayList <Trabajadorbbdd> trabajadores = new ArrayList();
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		 int nfilas = sheet.getLastRowNum();
 		 Iterator<Row> rows = sheet.rowIterator();
@@ -82,17 +85,17 @@ public class leerExcel {
 			  c = row.getCell(5);
 			  if (c== null) {
 				  
-			  }
-				  t.setCategorias("");
+			  
+				 
 			  }else {
-				  t.setCategorias(row.getCell(5).getStringCellValue());
+				  t.setIdCategoria(getByNameCategoria(row.getCell(5).getStringCellValue(),categorias));
 
 			  }
-			  c = row.getCell(6);
+			  c = row.getCell(7);
 			  if (c== null) {
-				  t.setEmpresa("");
+				
 			  }else {
-				  t.setEmpresa(row.getCell(6).getStringCellValue());
+				  t.setEmpresas(getByNameEmpresa(row.getCell(7).getStringCellValue(), empresas));
 
 			  }
 			  
@@ -126,27 +129,17 @@ public class leerExcel {
 				  t.setPais(row.getCell(15).getStringCellValue());
 			  }
 			  
-			  c = row.getCell(7);
 			  
-			  if (c== null) {
-				 
-			  }else {
-				  if(!estaIncluida(row.getCell(7).getStringCellValue())) {
-					  Empresa e = new Empresa();
-					  e.setCif(row.getCell(7).getStringCellValue());
-					  e.setNombre(row.getCell(6).getStringCellValue());
-					  empresa.add(e);
-				  }
-				 
-			  }
 			  
 			
 			  //cells.next();//email
 
 			  trabajadores.add(t); 
 	}
+		 
+		 return trabajadores;
 		
-	}*/
+	}
 
 	public ArrayList <Categorias> getCategorias(){
 		ArrayList <Categorias> categorias = new ArrayList();
@@ -190,7 +183,6 @@ public class leerExcel {
 //			 }
 			  
 			 categorias.add(cat);
-		//	 System.out.println(cat.getNombreCategoria()+" "+cat.getSalarioBaseCategoria()+" "+cat.getComplementoCategoria()+" "+cat.getCodigoCotizacion());
 		 }
 		 
 		 return categorias;
@@ -370,5 +362,64 @@ public class leerExcel {
 		 
 
 	}*/
+	public ArrayList<Empresas> getEmpresas(){
+		ArrayList <Empresas> empresas = new ArrayList();
 
+		 XSSFSheet sheet = workbook.getSheetAt(0);
+		 int nfilas = sheet.getLastRowNum();
+		 Iterator<Row> rows = sheet.rowIterator();
+		 rows.next();
+		 int cont = 0;
+		 while (cont<nfilas) {
+			 cont++;
+			  Row row = (Row) rows.next();
+			  Iterator<Cell> cells = row.cellIterator();
+			  Cell cell;
+			  List datos = new List();
+			
+			  if(!estaIncluida(row.getCell(7).getStringCellValue(), empresas)) {
+				  Empresas e = new Empresas();
+				  e.setCif(row.getCell(7).getStringCellValue());
+				  e.setNombre(row.getCell(6).getStringCellValue());
+				  empresas.add(e);
+			  }
+			  
+		 }	  
+		return empresas;
+	}
+	
+	public static boolean estaIncluida( String cif, ArrayList<Empresas> empresa) {
+		for(int i=0;i<empresa.size();i++) {
+			if(empresa.get(i).getCif().equals(cif)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
+	public int getByNameEmpresa(String cif, ArrayList<Empresas> lista) {
+		int id = 0;
+		for(int i=0;i<lista.size();i++) {
+		//	System.out.println(nombre + " "+ lista.get(i).getNombre() );
+			if(lista.get(i).getCif().equals(cif)) {
+				
+				id= lista.get(i).getIdEmpresa();
+				break;
+			}
+		}
+		return id;
+	}
+	public int getByNameCategoria(String nombre, ArrayList<Categorias> lista) {
+		int id = 0;
+		for(int i=0;i<lista.size();i++) {
+		//	System.out.println(nombre + " "+ lista.get(i).getNombre() );
+			if(lista.get(i).getNombreCategoria().equals(nombre)) {
+				
+				id= lista.get(i).getIdCategoria();
+				break;
+			}
+		}
+		return id;
+	}
 }

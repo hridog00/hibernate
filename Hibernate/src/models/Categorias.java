@@ -1,8 +1,8 @@
 package models;
 // Generated 30-may-2018 16:39:10 by Hibernate Tools 5.3.0.Beta2
 
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -74,13 +74,6 @@ public class Categorias implements java.io.Serializable {
 	public void setComplementoCategoria(double complementoCategoria) {
 		this.complementoCategoria = complementoCategoria;
 	}
+	
 
-	/*public Set getTrabajadorbbdds() {
-		return this.trabajadorbbdds;
-	}
-
-	public void setTrabajadorbbdds(Set trabajadorbbdds) {
-		this.trabajadorbbdds = trabajadorbbdds;
-	}
-*/
 }

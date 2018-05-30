@@ -5,13 +5,19 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="hibernate.connection.password">ademar20</property>
+        <property name="hibernate.connection.password">camaleon</property>
         <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/nominas</property>
-        <property name="hibernate.connection.username">jmachr</property>
+        <property name="hibernate.connection.username">helenadb</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         
         <property name="/hiberrnate.show_sql">true</property>
         <mapping class="models.Categorias" package="models" resource="/models.Categorias.hbm.xml"/>
+                <mapping class="models.Empresas" package="models" resource="/models.Empresas.hbm.xml"/>
+        
+                <mapping class="models.Nomina" package="models" resource="/models.Nomina.hbm.xml"/>
+        
+                <mapping class="models.Trabajadorbbdd" package="models" resource="/models.Trabajadorbbdd.hbm.xml"/>
+        
         
         
         
