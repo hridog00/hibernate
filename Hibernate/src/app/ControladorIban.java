@@ -6,16 +6,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.xml.sax.SAXException;
 
 import app.IbanGenerator;
-import models.Trabajadorbbdd;;
+import models.Trabajadorbbdd;
+import app.XMLCuentas;
 
 public class ControladorIban {
 	static ArrayList <Trabajadorbbdd> trabajadores = new ArrayList<Trabajadorbbdd>();
+	static int XMLCreadoCuentas = 0;
 	
 	public static void comprobarIban(String cc, String pais, int fila, Trabajadorbbdd t) {
 		
@@ -41,7 +47,7 @@ public class ControladorIban {
 		t.setIban(iban);
 		if(!correcto) {
 			modificarExcel(fila, cc, 14);
-			//generarErrorCuentas(String.valueOf(fila), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getCategoria(), t.getEmpresa(), t.getCodigoCuenta(), iban);
+			generarErrorCuentas(String.valueOf(fila), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getCategoria(), t.getEmpresa(), t.getCodigoCuenta(), iban);
 		}
 		
 		
@@ -78,6 +84,26 @@ public class ControladorIban {
 	        }
 		 
 	}
+	
+	public static void generarErrorCuentas(String id,String nombre, String ap1, String ap2, String cat, String empresa, String oldCuenta, String ibanNuevo) {
+		XMLCuentas xml = new XMLCuentas();
+		if (XMLCreadoCuentas==0) {
+			try {
+				xml.generar();
+			} catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
+				e.printStackTrace();
+			}
+			XMLCreadoCuentas++;
+		}
+			try {
+				xml.add(id, nombre, ap1, ap2, cat, empresa, oldCuenta, ibanNuevo);
+			} catch (SAXException | IOException | ParserConfigurationException | TransformerException e) {
+				e.printStackTrace();
+			}
+		
+			
+	}
+	
 	
 
 }
