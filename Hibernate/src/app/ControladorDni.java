@@ -10,7 +10,7 @@ import org.xml.sax.SAXException;
 
 import app.XMLController;
 
-public class ControlDni {
+public class ControladorDni {
 	
 	static ArrayList <String> analizados = new ArrayList <String>();
 	
