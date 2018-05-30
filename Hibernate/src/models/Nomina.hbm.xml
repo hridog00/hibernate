@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 30-may-2018 16:39:11 by Hibernate Tools 5.3.0.Beta2 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="nominas" dynamic-insert="false" dynamic-update="false" mutable="true" name="models.Nomina" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="nomina">
+        <id name="idNomina" type="java.lang.Integer">
+            <column name="IdNomina"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="models.Trabajadorbbdd" embed-xml="true" fetch="select" insert="true" name="trabajadorbbdd" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="IdTrabajador" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="mes" optimistic-lock="true" type="int" unique="false">
+            <column name="Mes" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="anio" optimistic-lock="true" type="int" unique="false">
+            <column name="Anio" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="numeroTrienios" optimistic-lock="true" type="int" unique="false">
+            <column name="NumeroTrienios" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="importeTrienios" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteTrienios" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeSalarioMes" optimistic-lock="true" type="double" unique="false">
+            <column name="importeSalarioMes" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeComplementoMes" optimistic-lock="true" type="double" unique="false">
+            <column name="importeComplementoMes" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="valorProrrateo" optimistic-lock="true" type="double" unique="false">
+            <column name="ValorProrrateo" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="brutoAnual" optimistic-lock="true" type="double" unique="false">
+            <column name="brutoAnual" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="irpf" optimistic-lock="true" type="double" unique="false">
+            <column name="IRPF" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeIrpf" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteIRPF" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="baseEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="BaseEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="seguridadSocialEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="SeguridadSocialEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeSeguridadSocialEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteSeguridadSocialEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="desempleoEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="DesempleoEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeDesempleoEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteDesempleoEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="formacionEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="FormacionEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeFormacionEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteFormacionEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="accidentesTrabajoEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="AccidentesTrabajoEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeAccidentesTrabajoEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteAccidentesTrabajoEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="fogasaempresario" optimistic-lock="true" type="double" unique="false">
+            <column name="FOGASAEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeFogasaempresario" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteFOGASAEMpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="seguridadSocialTrabajador" optimistic-lock="true" type="double" unique="false">
+            <column name="SeguridadSocialTrabajador" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeSeguridadSocialTrabajador" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteSeguridadSocialTrabajador" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="desempleoTrabajador" optimistic-lock="true" type="double" unique="false">
+            <column name="DesempleoTrabajador" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeDesempleoTrabajador" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteDesempleoTrabajador" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="formacionTrabajador" optimistic-lock="true" type="double" unique="false">
+            <column name="FormacionTrabajador" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="importeFormacionTrabajador" optimistic-lock="true" type="double" unique="false">
+            <column name="ImporteFormacionTrabajador" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="brutoNomina" optimistic-lock="true" type="double" unique="false">
+            <column name="BrutoNomina" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="liquidoNomina" optimistic-lock="true" type="double" unique="false">
+            <column name="LiquidoNomina" not-null="true" precision="22" scale="0"/>
+        </property>
+        <property generated="never" lazy="false" name="costeTotalEmpresario" optimistic-lock="true" type="double" unique="false">
+            <column name="CosteTotalEmpresario" not-null="true" precision="22" scale="0"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 30-may-2018 16:39:11 by Hibernate Tools 5.3.0.Beta2 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="nominas" dynamic-insert="false" dynamic-update="false" mutable="true" name="models.Trabajadorbbdd" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="trabajadorbbdd">
+        <id name="idTrabajador" type="java.lang.Integer">
+            <column name="idTrabajador"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="models.Categorias" embed-xml="true" fetch="select" insert="true" name="categorias" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="IdCategoria" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="models.Empresas" embed-xml="true" fetch="select" insert="true" name="empresas" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="IdEmpresa" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column length="50" name="Nombre" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="apellido1" optimistic-lock="true" type="string" unique="false">
+            <column length="75" name="Apellido1" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="apellido2" optimistic-lock="true" type="string" unique="false">
+            <column length="75" name="Apellido2"/>
+        </property>
+        <property generated="never" lazy="false" name="nifnie" optimistic-lock="true" type="string" unique="false">
+            <column length="10" name="NIFNIE" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="email" optimistic-lock="true" type="string" unique="false">
+            <column length="75" name="email"/>
+        </property>
+        <property generated="never" lazy="false" name="fechaAlta" optimistic-lock="true" type="date" unique="false">
+            <column length="10" name="FechaAlta"/>
+        </property>
+        <property generated="never" lazy="false" name="codigoCuenta" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="CodigoCuenta"/>
+        </property>
+        <property generated="never" lazy="false" name="iban" optimistic-lock="true" type="string" unique="false">
+            <column length="24" name="IBAN"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="nominas" optimistic-lock="true" sort="unsorted" table="nomina">
+            <key on-delete="noaction">
+                <column name="IdTrabajador" not-null="true"/>
+            </key>
+            <one-to-many class="models.Nomina" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>
