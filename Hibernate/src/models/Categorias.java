@@ -16,7 +16,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="categorias")
+@Table(name="Categorias")
 public class Categorias implements java.io.Serializable {
 
 	@Id
