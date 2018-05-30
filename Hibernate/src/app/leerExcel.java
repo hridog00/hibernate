@@ -96,7 +96,7 @@ public class leerExcel extends main{
 			  if (c== null) {
 				
 			  }else {
-				  t.setEmpresa(row.getCell(7).getStringCellValue());
+				  t.setEmpresa(row.getCell(6).getStringCellValue());
 				  t.setIdEmpresas(getByNameEmpresa(row.getCell(7).getStringCellValue(), empresas));
 
 			  }

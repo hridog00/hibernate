@@ -23,7 +23,7 @@ public class ControladorIban {
 	static ArrayList <Trabajadorbbdd> trabajadores = new ArrayList<Trabajadorbbdd>();
 	static int XMLCreadoCuentas = 0;
 	
-	public static void comprobarIban(String cc, String pais, int fila, Trabajadorbbdd t) {
+	public static String  comprobarIban(String cc, String pais, int fila, Trabajadorbbdd t) {
 		
 		IbanGenerator generator = new IbanGenerator();
 		String iban = "";
@@ -52,6 +52,7 @@ public class ControladorIban {
 		
 		
 		modificarExcel(fila, iban, 16);
+		return iban;
 		
 		
 	}

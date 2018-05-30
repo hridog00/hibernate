@@ -10,7 +10,7 @@ public class ControladorEmail {
 	static ArrayList <String> emails = new ArrayList <String>();
 
 	
-	public static void generarEmail(Trabajadorbbdd t) {
+	public static String generarEmail(Trabajadorbbdd t) {
 		EmailGenerator eg = new EmailGenerator();
 		String n= eg.generarNombreEmail(t.getNombre(), t.getApellido1(), t.getApellido2());
 		String numero = eg.generarNumero(n, emails);
@@ -18,8 +18,8 @@ public class ControladorEmail {
 		String email = eg.generarEmail(n, numero, t.getEmpresa());
 		ModificarExcell m = new ModificarExcell();
 		m.modificarExcel(t.getFila(),email,4);
-		
-		
+		System.out.println(email);
+		return email;
 	}
 
 }

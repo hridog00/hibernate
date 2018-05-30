@@ -27,8 +27,8 @@ public class main {
 		guardarCategorias();
 		guardarTrabajadores();
 		comprobarDNI();	
-		
-		
+		generarEmails();
+		generarIban();
 	
 		
 	}
@@ -117,7 +117,19 @@ session = HibernateUtil.getSessionFactory().openSession();
 		controladorDni.comprobar();
 	}
 	public static void generarIban() {
+		ControladorIban  controladorIban = new ControladorIban();
+		for (int i=0;i<trabajadores.size();i++) {
+		String cc = trabajadores.get(i).getCodigoCuenta();
 		
+		trabajadores.get(i).setIban(controladorIban.comprobarIban(cc,  trabajadores.get(i).getPais(), trabajadores.get(i).getFila(), trabajadores.get(i)));
+		System.out.println(trabajadores.get(i).getIban());
+		}
+	}
+	public static void generarEmails() {
+		ControladorEmail controladorEmail = new ControladorEmail();
+		for (int i=0;i<trabajadores.size();i++) {
+			trabajadores.get(i).setEmail(controladorEmail.generarEmail(trabajadores.get(i)));
+		}
 	}
 
 }
