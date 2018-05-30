@@ -41,7 +41,7 @@ public class ControladorIban {
 		t.setIban(iban);
 		if(!correcto) {
 			modificarExcel(fila, cc, 14);
-			generarErrorCuentas(String.valueOf(fila), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getCategoria(), t.getEmpresa(), t.getCodigoCuenta(), iban);
+			//generarErrorCuentas(String.valueOf(fila), t.getNombre(), t.getApellido1(), t.getApellido2(), t.getCategoria(), t.getEmpresa(), t.getCodigoCuenta(), iban);
 		}
 		
 		

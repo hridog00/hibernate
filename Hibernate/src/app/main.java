@@ -26,7 +26,11 @@ public class main {
 		guardarEmpresas();
 		guardarCategorias();
 		guardarTrabajadores();
+		comprobarDNI();	
+		
+		
 	
+		
 	}
 	
 	public static void guardarEmpresas() {
@@ -108,4 +112,12 @@ session = HibernateUtil.getSessionFactory().openSession();
 		}
 		
 	}
+	public static void comprobarDNI() {
+		ControladorDni controladorDni = new ControladorDni();
+		controladorDni.comprobar();
+	}
+	public static void generarIban() {
+		
+	}
+
 }

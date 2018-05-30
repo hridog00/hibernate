@@ -33,8 +33,10 @@ public class Trabajadorbbdd implements java.io.Serializable {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Integer idTrabajador;
-	@Column
-	private Categorias categorias;
+	@Transient
+	private String categorias;
+	@Transient
+	private String empresa;
 	@Column
 	private int IdEmpresa;
 	@Column
@@ -108,11 +110,11 @@ public class Trabajadorbbdd implements java.io.Serializable {
 		this.idTrabajador = idTrabajador;
 	}
 
-	public Categorias getCategorias() {
+	public String getCategorias() {
 		return this.categorias;
 	}
 
-	public void setCategorias(Categorias categorias) {
+	public void setCategorias(String categorias) {
 		this.categorias = categorias;
 	}
 
@@ -120,7 +122,7 @@ public class Trabajadorbbdd implements java.io.Serializable {
 		return this.IdEmpresa;
 	}
 
-	public void setEmpresas(int id) {
+	public void setIdEmpresas(int id) {
 
 
 		IdEmpresa = id;
@@ -197,6 +199,15 @@ public class Trabajadorbbdd implements java.io.Serializable {
 	public void setFila(int fila) {
 		this.fila = fila;
 	}
+	
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
 
 	public int getIdCategoria() {
 		return IdCategoria;
@@ -214,6 +225,14 @@ public class Trabajadorbbdd implements java.io.Serializable {
 
 	public void setPais(String pais) {
 		this.pais = pais;
+	}
+
+	public String getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
 	}
 
 	/*public Set getNominas() {

@@ -21,34 +21,35 @@ public class ControladorDni extends main {
 public static void comprobar() {
 		
 		for(int i=0;i<trabajadores.size();i++) {
-		//	System.out.println("**********************");
+			System.out.println("**********************");
 			
 			//
 			String DNI = trabajadores.get(i).getNifnie();
-		//	System.out.println(DNI);
+			System.out.println(DNI);
 				
 			
 
 			if(estaVacio(DNI)) {
-			//	System.out.println("ESTA VACIO");
+				System.out.println("ESTA VACIO");
 				
 				generarErrorDni(String.valueOf(trabajadores.get(i).getFila()), trabajadores.get(i).getNombre(), trabajadores.get(i).getApellido1(), trabajadores.get(i).getApellido2(),trabajadores.get(i).getCategoria(), trabajadores.get(i).getEmpresa());
 			}else {
 				
 			if(comprobarDNI(DNI)) {
-				//System.out.println("ESTA BIEN");
+				System.out.println("ESTA BIEN");
 
 				//Si esta bien, no hace nada
 			}else {
 				String dniNuevo=arreglarDNI(DNI);
 				ModificarExcell m =new ModificarExcell();
 				m.modificarExcel(trabajadores.get(i).getFila(), dniNuevo,0);
-				
+				System.out.println("MAL: ARRGLADO "+dniNuevo);
+
 				
 			}
 			
 			if(estaDuplicado(DNI)) {
-
+				System.out.println("DUPLICADO");
 				generarErrorDni(String.valueOf(trabajadores.get(i).getFila()), trabajadores.get(i).getNombre(), trabajadores.get(i).getApellido1(), trabajadores.get(i).getApellido2(),trabajadores.get(i).getCategoria(), trabajadores.get(i).getEmpresa());
 			}else {
 				analizados.add(DNI);

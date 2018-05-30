@@ -88,6 +88,7 @@ public class leerExcel extends main{
 			  
 				 
 			  }else {
+				  t.setCategoria(row.getCell(5).getStringCellValue());
 				  t.setIdCategoria(getByNameCategoria(row.getCell(5).getStringCellValue(),categorias));
 
 			  }
@@ -95,7 +96,8 @@ public class leerExcel extends main{
 			  if (c== null) {
 				
 			  }else {
-				  t.setEmpresas(getByNameEmpresa(row.getCell(7).getStringCellValue(), empresas));
+				  t.setEmpresa(row.getCell(7).getStringCellValue());
+				  t.setIdEmpresas(getByNameEmpresa(row.getCell(7).getStringCellValue(), empresas));
 
 			  }
 			  
