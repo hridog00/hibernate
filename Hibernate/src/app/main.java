@@ -1,7 +1,11 @@
 package app;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
 
 import javax.persistence.Query;
 
@@ -133,6 +137,19 @@ session = HibernateUtil.getSessionFactory().openSession();
 		}
 	}
 	public static void generarNominas() {
+	}
+	public static Date fechaNomina() throws ParseException{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Introduce una fecha: MM/yyyy"); 
+		String dateLeido = sc.nextLine();
+		dateLeido = "01/" + dateLeido;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+		
+		Date date = sdf.parse(dateLeido);
+
+		
+		return date;
 		
 	}
+	
 }
