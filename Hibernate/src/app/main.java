@@ -43,7 +43,7 @@ public class main {
 			e.printStackTrace();
 		}
 		guardarNominas();
-	
+		System.exit(0);
 		
 	}
 	
@@ -67,9 +67,6 @@ session = HibernateUtil.getSessionFactory().openSession();
 				query.setParameter("cif", empresas.get(i).getCif());
 				if(query.getResultList().isEmpty()) {
 					session.save(empresas.get(i));
-
-				}else {
-					session.update(empresas.get(i));
 
 				}
 
@@ -101,6 +98,10 @@ session = HibernateUtil.getSessionFactory().openSession();
 				query.setParameter("nombre", categorias.get(i).getNombreCategoria());
 				if(query.getResultList().isEmpty()) {
 					session.save(categorias.get(i));
+				}else {
+					Categorias c = (Categorias) query.getResultList().get(0);
+					categorias.get(i).setIdCategoria(c.getIdCategoria());
+					session.merge(categorias.get(i));
 				}
 
 			}
@@ -127,10 +128,19 @@ session = HibernateUtil.getSessionFactory().openSession();
 				query.setParameter("fecha", trabajadores.get(i).getFechaAlta());
 				
 				if(query.getResultList().isEmpty()) {
+					System.out.println("ENTRO");
 					session.save(trabajadores.get(i));
 
+					Trabajadorbbdd t = (Trabajadorbbdd) query.getResultList().get(0);
+					System.out.println(t.getIdTrabajador());
+					trabajadores.get(i).setIdTrabajador(t.getIdTrabajador());
 				}else {
-					session.update(trabajadores.get(i));
+					System.out.println(trabajadores.get(i).getApellido1());
+					Trabajadorbbdd t = (Trabajadorbbdd) query.getResultList().get(0);
+					trabajadores.get(i).setIdTrabajador(t.getIdTrabajador());
+					t = trabajadores.get(i);
+					session.merge(trabajadores.get(i));
+					
 				}
 			}
 
@@ -181,22 +191,23 @@ session = HibernateUtil.getSessionFactory().openSession();
 	public static void generarNominas() throws ParseException {
 		Date fecha = fechaNomina();
 		for(int i=0;i<trabajadores.size();i++) {
-	    	 
+			if(trabajadores.get(i).getNifnie()!="") {
 	    	  // System.out.println("Trabajador :" + i);
 	    	   if(fecha.after(trabajadores.get(i).getFechaAlta())){
 
 	    		   NominaGenerator nomina = new NominaGenerator();
-	    		   nomina.generarNomina(trabajadores.get(i), fecha);
+	    		   
+	    		  nominas.add(nomina.generarNomina(trabajadores.get(i), fecha));
 
 	    		   if((fecha.getMonth()==5)||(fecha.getMonth()==11)) {
 
 	    			   if(!trabajadores.get(i).getProrrateo()) {
-	    				   nomina.generarNominaExtra(trabajadores.get(i), fecha);
+	    				   nominas.add(nomina.generarNominaExtra(trabajadores.get(i), fecha));
 	    			   }	  
 	    		   }
 	    	   }
 	    	     
-	    	     
+			}    
 	       }
 	}
 	public static Date fechaNomina() throws ParseException{
@@ -216,19 +227,16 @@ session = HibernateUtil.getSessionFactory().openSession();
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 		for (int i = 0; i < nominas.size(); i++) {
-
-			Query query = session.createQuery("from Nominas where Mes=:Mes AND Anio=:Anio AND BrutoNomina=:BrutoNomina AND LiquidoNomina=:LiquidoNomina AND IdTrabajador=:IdTrabajador");
+			System.out.println(nominas.get(i).getTrabajadorbbdd().getIdTrabajador());
+			Query query = session.createQuery("from Nomina where Mes=:Mes AND Anio=:Anio AND BrutoNomina=:BrutoNomina AND LiquidoNomina=:LiquidoNomina AND IdTrabajador=:IdTrabajador");
 			query.setParameter("Mes", nominas.get(i).getMes());
 			query.setParameter("Anio",  nominas.get(i).getAnio());
 			query.setParameter("BrutoNomina", nominas.get(i).getBrutoNomina());
 			query.setParameter("LiquidoNomina",  nominas.get(i).getLiquidoNomina());
 			query.setParameter("IdTrabajador", nominas.get(i).getTrabajadorbbdd().getIdTrabajador());
-
+			
 			if(query.getResultList().isEmpty()) {
 				session.save(nominas.get(i));
-
-			}else {
-				session.update(nominas.get(i));
 
 			}
 

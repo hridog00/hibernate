@@ -14,6 +14,8 @@ import models.Nomina;
 import models.Trabajadorbbdd;
 
 public class NominaGenerator extends main {
+	
+	public double brutoAnual;
 	public Nomina generarNomina(Trabajadorbbdd t, Date fecha) throws ParseException {
 
 		
@@ -72,7 +74,7 @@ public class NominaGenerator extends main {
 		nomina.setImporteSalarioMes(salarioBase);
 		nomina.setImporteComplementoMes(complemento);
 		nomina.setValorProrrateo(prorrateo);
-		nomina.setBrutoAnual(c.findCategoria(t.getCategorias(), categorias).getSalarioBaseCategoria());
+		nomina.setBrutoAnual(brutoAnual);
 		nomina.setIrpf(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias)));
 		nomina.setImporteIrpf(irpf);
 		nomina.setBaseEmpresario(empresarioBase);
@@ -118,7 +120,7 @@ public class NominaGenerator extends main {
 		//donde llamamamos al resto 
 	}
 	
-	public void generarNominaExtra(Trabajadorbbdd t, Date fecha) throws ParseException {
+	public Nomina generarNominaExtra(Trabajadorbbdd t, Date fecha) throws ParseException {
 		Categorias c = new Categorias();
 		double prorrateo = 0;
 
@@ -169,7 +171,7 @@ nomina.setImporteTrienios(antiguedad);
 nomina.setImporteSalarioMes(salarioBase);
 nomina.setImporteComplementoMes(complemento);
 nomina.setValorProrrateo(prorrateo);
-nomina.setBrutoAnual(c.findCategoria(t.getCategorias(), categorias).getSalarioBaseCategoria());
+nomina.setBrutoAnual(brutoAnual);
 nomina.setIrpf(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias)));
 nomina.setImporteIrpf(irpf);
 nomina.setBaseEmpresario(empresarioBase);
@@ -207,7 +209,8 @@ nomina.setTrabajadorbbdd(t);
 		} catch (DocumentException | IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}		
+		}
+		return nomina;		
 		
 		
 	}
@@ -294,6 +297,7 @@ nomina.setTrabajadorbbdd(t);
 
 			brutoAnual =importeBruto*14;
 		}
+		this.brutoAnual = brutoAnual;
 		System.out.println("Bruto anueal: "+brutoAnual);
 		double total = c.getSalarioBaseCategoria()+c.getComplementoCategoria() +brutoAnual;
 		System.out.println("Total: "+total);
