@@ -29,6 +29,7 @@ import models.Trabajadorbbdd;
 
 
 
+
 public class PdfGenerator {
 	public void generarPdf(Empresas empresa , Trabajadorbbdd trabajador, Date fecha, Nomina n, Boolean extra) throws DocumentException, MalformedURLException, IOException {
 		String nombre = "";

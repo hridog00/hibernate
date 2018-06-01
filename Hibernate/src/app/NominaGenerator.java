@@ -14,7 +14,7 @@ import models.Nomina;
 import models.Trabajadorbbdd;
 
 public class NominaGenerator extends main {
-	public void generarNomina(Trabajadorbbdd t, Date fecha) throws ParseException {
+	public Nomina generarNomina(Trabajadorbbdd t, Date fecha) throws ParseException {
 
 		
 		System.out.println("Apel1:" + t.getApellido1()+ "Apel2: " + t.getApellido2()+ "Nombre:" +t.getNombre() );
@@ -99,7 +99,7 @@ public class NominaGenerator extends main {
 		nomina.setValorParaIrpf(totalCalcular);		
 		nomina.settDeducciones(tDeduccion);
 		nomina.setCosteTotalTrabajador(costeTrabajor);
-
+		nomina.setTrabajadorbbdd(t);
 		
 		Empresas e = new Empresas();
 		e  = e.findEmpresa(t.getEmpresa(), empresas);
@@ -112,6 +112,8 @@ public class NominaGenerator extends main {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}	
+		
+		return nomina;
 		
 		//donde llamamamos al resto 
 	}
@@ -194,6 +196,8 @@ nomina.setImporteAccidentesTrabajoEmpresario(accidentes);
 nomina.setValorParaIrpf(totalCalcular);		
 nomina.settDeducciones(tDeduccion);
 nomina.setCosteTotalTrabajador(costeTrabajor);
+nomina.setTrabajadorbbdd(t);
+
 
 		PdfGenerator pdf = new PdfGenerator();
 		Empresas e = new Empresas();

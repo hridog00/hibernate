@@ -14,30 +14,41 @@ import org.hibernate.Transaction;
 
 import models.Categorias;
 import models.Empresas;
+import models.Nomina;
 import models.Trabajadorbbdd;
 import utils.HibernateUtil;
 
+@SuppressWarnings("static-access")
 public class main {
 	
 	private static Session session;
 	static ArrayList<Categorias> categorias = new ArrayList<>();
 	static ArrayList<Empresas> empresas = new ArrayList<>();
 	static ArrayList<Trabajadorbbdd> trabajadores = new ArrayList<>();
-	
+	static ArrayList<Nomina> nominas = new ArrayList<>();
 
 
 	public static void main(String[] args) {
 		guardarEmpresas();
 		guardarCategorias();
-		guardarTrabajadores();
+		leerTrabajadores();
 		comprobarDNI();	
 		generarEmails();
 		generarIban();
-		generarNominas();
+		guardarTrabajador();
+		try {
+			generarNominas();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		guardarNominas();
 	
 		
 	}
 	
+	
+
 	public static void guardarEmpresas() {
 session = HibernateUtil.getSessionFactory().openSession();
 		
@@ -57,6 +68,9 @@ session = HibernateUtil.getSessionFactory().openSession();
 				if(query.getResultList().isEmpty()) {
 					session.save(empresas.get(i));
 
+				}else {
+					session.update(empresas.get(i));
+
 				}
 
 			}
@@ -71,11 +85,11 @@ session = HibernateUtil.getSessionFactory().openSession();
 		
 	}
 	public static void guardarCategorias() {
-session = HibernateUtil.getSessionFactory().openSession();
-		
+		session = HibernateUtil.getSessionFactory().openSession();
+
 		Transaction tx = session.beginTransaction();
-		
-		
+
+
 
 		leerExcel archivo;
 		try {
@@ -87,14 +101,13 @@ session = HibernateUtil.getSessionFactory().openSession();
 				query.setParameter("nombre", categorias.get(i).getNombreCategoria());
 				if(query.getResultList().isEmpty()) {
 					session.save(categorias.get(i));
-
 				}
 
 			}
-			
-			
+
+
 			categorias = (ArrayList<Categorias>) session.createQuery("from Categorias").list();
-		
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,14 +115,42 @@ session = HibernateUtil.getSessionFactory().openSession();
 		tx.commit();
 		session.close();
 	}
-	public static void guardarTrabajadores() {
+	public static void guardarTrabajador() {
+		session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		for (int i = 0; i < trabajadores.size(); i++) {
+			if(trabajadores.get(i).getNifnie()!="") {
 
-		
+				Query query = session.createQuery("from Trabajadorbbdd where NIFNIE=:nie AND Nombre=:nombre AND FechaAlta=:fecha");
+				query.setParameter("nombre", trabajadores.get(i).getNombre());
+				query.setParameter("nie", trabajadores.get(i).getNifnie());
+				query.setParameter("fecha", trabajadores.get(i).getFechaAlta());
+				
+				if(query.getResultList().isEmpty()) {
+					session.save(trabajadores.get(i));
+
+				}else {
+					session.update(trabajadores.get(i));
+				}
+			}
+
+
+		}
+		tx.commit();
+		session.close();
+	}
+	
+
+	public static void leerTrabajadores() {
+
+	
 
 		leerExcel archivo;
 		try {
 			archivo = new leerExcel();
 			trabajadores = archivo.getTrabajadores();
+			
+			 
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -136,14 +177,34 @@ session = HibernateUtil.getSessionFactory().openSession();
 			trabajadores.get(i).setEmail(controladorEmail.generarEmail(trabajadores.get(i)));
 		}
 	}
-	public static void generarNominas() {
+
+	public static void generarNominas() throws ParseException {
+		Date fecha = fechaNomina();
+		for(int i=0;i<trabajadores.size();i++) {
+	    	 
+	    	  // System.out.println("Trabajador :" + i);
+	    	   if(fecha.after(trabajadores.get(i).getFechaAlta())){
+
+	    		   NominaGenerator nomina = new NominaGenerator();
+	    		   nomina.generarNomina(trabajadores.get(i), fecha);
+
+	    		   if((fecha.getMonth()==5)||(fecha.getMonth()==11)) {
+
+	    			   if(!trabajadores.get(i).getProrrateo()) {
+	    				   nomina.generarNominaExtra(trabajadores.get(i), fecha);
+	    			   }	  
+	    		   }
+	    	   }
+	    	     
+	    	     
+	       }
 	}
 	public static Date fechaNomina() throws ParseException{
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce una fecha: MM/yyyy"); 
 		String dateLeido = sc.nextLine();
 		dateLeido = "01/" + dateLeido;
-		SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
 		Date date = sdf.parse(dateLeido);
 
@@ -151,5 +212,31 @@ session = HibernateUtil.getSessionFactory().openSession();
 		return date;
 		
 	}
+	public static void guardarNominas() {
+		session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		for (int i = 0; i < nominas.size(); i++) {
+
+			Query query = session.createQuery("from Nominas where Mes=:Mes AND Anio=:Anio AND BrutoNomina=:BrutoNomina AND LiquidoNomina=:LiquidoNomina AND IdTrabajador=:IdTrabajador");
+			query.setParameter("Mes", nominas.get(i).getMes());
+			query.setParameter("Anio",  nominas.get(i).getAnio());
+			query.setParameter("BrutoNomina", nominas.get(i).getBrutoNomina());
+			query.setParameter("LiquidoNomina",  nominas.get(i).getLiquidoNomina());
+			query.setParameter("IdTrabajador", nominas.get(i).getTrabajadorbbdd().getIdTrabajador());
+
+			if(query.getResultList().isEmpty()) {
+				session.save(nominas.get(i));
+
+			}else {
+				session.update(nominas.get(i));
+
+			}
+
+		}
+		tx.commit();
+		session.close();
+	}
+	
+		
 	
 }
