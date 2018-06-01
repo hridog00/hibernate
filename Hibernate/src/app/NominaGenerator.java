@@ -72,8 +72,8 @@ public class NominaGenerator extends main {
 		nomina.setImporteSalarioMes(salarioBase);
 		nomina.setImporteComplementoMes(complemento);
 		nomina.setValorProrrateo(prorrateo);
-		nomina.setBurtoAnual(c.findCategoria(t.getCategorias(), categoria).getSalarioBaseCategoria());
-		nomina.setIRPF(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categoria)));
+		nomina.setBrutoAnual(c.findCategoria(t.getCategorias(), categorias).getSalarioBaseCategoria());
+		nomina.setIrpf(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias)));
 		nomina.setImporteIrpf(irpf);
 		nomina.setBaseEmpresario(empresarioBase);
 		nomina.setSeguridadSocialEmpresario(0.236);
@@ -137,7 +137,7 @@ public class NominaGenerator extends main {
 		double ss = totalCalcular * 0.047;
 		double desempleo = totalCalcular * 0.016;
 		double formacion = totalCalcular * 0.001;
-		double irpf =  tDevengo * getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categoria));
+		double irpf =  tDevengo * getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias));
 		
 		double tDeduccion = ss+desempleo+formacion+irpf;
 		
@@ -167,8 +167,8 @@ nomina.setImporteTrienios(antiguedad);
 nomina.setImporteSalarioMes(salarioBase);
 nomina.setImporteComplementoMes(complemento);
 nomina.setValorProrrateo(prorrateo);
-nomina.setBurtoAnual(c.findCategoria(t.getCategorias(), categorias).getSalarioBaseCategoria());
-nomina.setIRPF(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias)));
+nomina.setBrutoAnual(c.findCategoria(t.getCategorias(), categorias).getSalarioBaseCategoria());
+nomina.setIrpf(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias)));
 nomina.setImporteIrpf(irpf);
 nomina.setBaseEmpresario(empresarioBase);
 nomina.setSeguridadSocialEmpresario(0.236);
