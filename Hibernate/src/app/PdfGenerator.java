@@ -34,10 +34,10 @@ public class PdfGenerator {
 		String nombre = "";
 		String mes = getMonthName(fecha);
 		if(extra){
-			 nombre = "resources/"+ trabajador.getDNI() + "_" + trabajador.getApellido1() + trabajador.getApellido2() + trabajador.getNombre() +"_"+mes+""+fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length() )+ "_Extra" + ".pdf";
+			 nombre = "resources/"+ trabajador.getNifnie() + "_" + trabajador.getApellido1() + trabajador.getApellido2() + trabajador.getNombre() +"_"+mes+""+fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length() )+ "_Extra" + ".pdf";
 
 		}else{
-			 nombre = "resources/"+ trabajador.getDNI() + "_" + trabajador.getApellido1() + trabajador.getApellido2() + trabajador.getNombre() + "_" +mes+""+fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length() )+  ".pdf";
+			 nombre = "resources/"+ trabajador.getNifnie() + "_" + trabajador.getApellido1() + trabajador.getApellido2() + trabajador.getNombre() + "_" +mes+""+fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length() )+  ".pdf";
 
 		}
 		
@@ -67,7 +67,7 @@ public class PdfGenerator {
 		cellCabeceraDcha.addElement(new Paragraph("Categoria: "+ trabajador.getCategorias()));
 		
 		
-		cellCabeceraDcha.addElement(new Paragraph("Bruto anual: "+ n.getBurtoAnual()));
+		cellCabeceraDcha.addElement(new Paragraph("Bruto anual: "+ n.getBrutoAnual()));
 		
 		
 		cellCabeceraDcha.addElement(new Paragraph("Fecha de Alta: "+ trabajador.getFechaAlta()));
@@ -82,7 +82,7 @@ public class PdfGenerator {
 		 Paragraph destinatario = new Paragraph("Destinatario: ");
 		 Paragraph nomTrabajador = new Paragraph(trabajador.getNombre()+""+trabajador.getApellido1()+" "+trabajador.getApellido2());
 		 nomTrabajador.setAlignment(Element.ALIGN_RIGHT);
-		 Paragraph niftrab = new Paragraph("DNI: " +trabajador.getDNI());
+		 Paragraph niftrab = new Paragraph("DNI: " +trabajador.getNifnie());
 		 niftrab.setAlignment(Element.ALIGN_RIGHT);
 		 Paragraph dir1trab = new Paragraph("Avenida de la facultad");
 		 dir1trab.setAlignment(Element.ALIGN_RIGHT);
@@ -205,7 +205,7 @@ public class PdfGenerator {
 	     cell = new PdfPCell(new Phrase(""));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
-	     cell = new PdfPCell(new Phrase(String.format("%.2f",n.getImporteCompMes())));
+	     cell = new PdfPCell(new Phrase(String.format("%.2f",n.getImporteComplementoMes())));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
 	     cell = new PdfPCell(new Phrase(""));
@@ -214,13 +214,13 @@ public class PdfGenerator {
 	     cell = new PdfPCell(new Phrase("Antiguedad"));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
-	     cell = new PdfPCell(new Phrase(n.getnTrienios()+" Trienios"));
+	     cell = new PdfPCell(new Phrase(n.getNumeroTrienios()+" Trienios"));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
 	     cell = new PdfPCell(new Phrase(""));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
-	     cell = new PdfPCell(new Phrase(""+n.getImporteTrienio()));
+	     cell = new PdfPCell(new Phrase(""+n.getImporteTrienios()));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
 	     cell = new PdfPCell(new Phrase(""));
@@ -254,7 +254,7 @@ public class PdfGenerator {
 	     cell = new PdfPCell(new Phrase(""));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
-	     cell = new PdfPCell(new Phrase(""+ String.format("%.2f", n.getImpSStrabajador())));
+	     cell = new PdfPCell(new Phrase(""+ String.format("%.2f", n.getImporteSeguridadSocialTrabajador())));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
 	     
@@ -271,7 +271,7 @@ public class PdfGenerator {
 	     cell = new PdfPCell(new Phrase(""));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
-	     cell = new PdfPCell(new Phrase(""+ String.format("%.2f", n.getImpDesempleoTrabajador())));
+	     cell = new PdfPCell(new Phrase(""+ String.format("%.2f", n.getImporteDesempleoTrabajador())));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
 	     
@@ -288,7 +288,7 @@ public class PdfGenerator {
 	     cell = new PdfPCell(new Phrase(""));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
-	     cell = new PdfPCell(new Phrase(""+ String.format("%.2f", n.getImpFormacionTrabajador())));
+	     cell = new PdfPCell(new Phrase(""+ String.format("%.2f", n.getImporteFormacionTrabajador())));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
 	     
@@ -296,7 +296,7 @@ public class PdfGenerator {
 	     cell = new PdfPCell(new Phrase("IRPF"));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
-	     cell = new PdfPCell(new Phrase(String.format("%.2f", (n.getIRPF()*100))+"%"));
+	     cell = new PdfPCell(new Phrase(String.format("%.2f", (n.getIrpf()*100))+"%"));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
 	     cell = new PdfPCell(new Phrase("de " + String.format("%.2f",n.getBrutoNomina())));
@@ -306,7 +306,7 @@ public class PdfGenerator {
 	     cell.setBorder(0);
 
 	     tablaNomina.addCell(cell);
-	     cell = new PdfPCell(new Phrase(""+ String.format("%.2f", n.getImporteIRPF())));
+	     cell = new PdfPCell(new Phrase(""+ String.format("%.2f", n.getImporteIrpf())));
 	     cell.setBorder(0);
 	     tablaNomina.addCell(cell);
 	     
@@ -373,7 +373,7 @@ public class PdfGenerator {
 	     cellEmp = new PdfPCell(new Phrase("Contingencias comunes 23,60%"));
 	     cellEmp.setBorder(0);
 	     tablaEmp.addCell(cellEmp);
-	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getImporteSSEMpresario())));
+	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getImporteSeguridadSocialEmpresario())));
 	     cellEmp.setBorder(0);
 	     cellEmp.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 	     tablaEmp.addCell(cellEmp);
@@ -389,7 +389,7 @@ public class PdfGenerator {
 	     cellEmp = new PdfPCell(new Phrase("Formacion 0.6%"));
 	     cellEmp.setBorder(0);
 	     tablaEmp.addCell(cellEmp);
-	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getImpFormacionEmpresario())));
+	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getImporteFormacionEmpresario())));
 	     cellEmp.setBorder(0);
 	     cellEmp.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 	     tablaEmp.addCell(cellEmp);
@@ -397,7 +397,7 @@ public class PdfGenerator {
 	     cellEmp = new PdfPCell(new Phrase("Accidentes de trabajo 1.0%"));
 	     cellEmp.setBorder(0);
 	     tablaEmp.addCell(cellEmp);
-	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getImpAccidenteTrabajoEmpresario())));
+	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getImporteAccidentesTrabajoEmpresario())));
 	     cellEmp.setBorder(0);
 	     cellEmp.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 	 
@@ -406,7 +406,7 @@ public class PdfGenerator {
 	     cellEmp = new PdfPCell(new Phrase("FOGASA 0.2%"));
 	     cellEmp.setBorder(0);
 	     tablaEmp.addCell(cellEmp);
-	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getImpFOGASAemp())));
+	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getImporteFogasaempresario())));
 	     cellEmp.setBorder(0);
 	     cellEmp.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 	     tablaEmp.addCell(cellEmp);
@@ -414,7 +414,7 @@ public class PdfGenerator {
 	     cellEmp = new PdfPCell(new Phrase("TOTAL empresario"));
 	     cellEmp.setBorder(0);
 	     tablaEmp.addCell(cellEmp);
-	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getCosteTotalEmp())));
+	     cellEmp = new PdfPCell(new Phrase("" + String.format("%.2f", n.getCosteTotalEmpresario())));
 	     cellEmp.setBorder(0);
 	     cellEmp.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 	     tablaEmp.addCell(cellEmp);

@@ -31,5 +31,17 @@
 	<classpathentry kind="lib" path="libs/poi-scratchpad-3.17.jar"/>
 	<classpathentry kind="lib" path="libs/curvesapi-1.04.jar"/>
 	<classpathentry kind="lib" path="libs/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itext-pdfa-5.5.11-javadoc.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itext-pdfa-5.5.11-sources.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itext-pdfa-5.5.11.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itext-xtra-5.5.11-javadoc.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itext-xtra-5.5.11-sources.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itext-xtra-5.5.11.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itextpdf-5.5.11-javadoc.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itextpdf-5.5.11-sources.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-itextpdf-5.5.11.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-xmlworker-5.5.11-javadoc.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-xmlworker-5.5.11-sources.jar"/>
+	<classpathentry kind="lib" path="libs/itext5-xmlworker-5.5.11.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
