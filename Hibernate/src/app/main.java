@@ -29,6 +29,7 @@ public class main {
 		comprobarDNI();	
 		generarEmails();
 		generarIban();
+		generarNominas();
 	
 		
 	}
@@ -131,5 +132,7 @@ session = HibernateUtil.getSessionFactory().openSession();
 			trabajadores.get(i).setEmail(controladorEmail.generarEmail(trabajadores.get(i)));
 		}
 	}
-
+	public static void generarNominas() {
+		
+	}
 }
