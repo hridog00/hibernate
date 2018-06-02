@@ -45,7 +45,7 @@ public class NominaGenerator extends main {
 		double ss = totalCalcular * 0.047;
 		double desempleo = totalCalcular * 0.016;
 		double formacion = totalCalcular * 0.001;
-		double irpf = tDevengo * getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias));
+		double irpf = tDevengo * getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategoria(), categorias));
 		
 		double tDeduccion = ss+desempleo+formacion+irpf;
 		
@@ -67,15 +67,15 @@ public class NominaGenerator extends main {
 		//damos valores
 		Nomina nomina = new Nomina();
 		
-		nomina.setMes(fecha.getMonth());
-		nomina.setAnio(fecha.getYear());
+		nomina.setMes(fecha.getMonth()+1);
+		nomina.setAnio(Integer.parseInt(fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length())));
 		nomina.setNumeroTrienios((int)(getMesesTrabajados(t.getFechaAlta(), fecha)-1)/36);
 		nomina.setImporteTrienios(antiguedad);
 		nomina.setImporteSalarioMes(salarioBase);
 		nomina.setImporteComplementoMes(complemento);
 		nomina.setValorProrrateo(prorrateo);
 		nomina.setBrutoAnual(brutoAnual);
-		nomina.setIrpf(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias)));
+		nomina.setIrpf(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategoria(), categorias)));
 		nomina.setImporteIrpf(irpf);
 		nomina.setBaseEmpresario(empresarioBase);
 		nomina.setSeguridadSocialEmpresario(0.236);
@@ -141,10 +141,10 @@ public class NominaGenerator extends main {
 		double ss = totalCalcular * 0.047;
 		double desempleo = totalCalcular * 0.016;
 		double formacion = totalCalcular * 0.001;
-		double irpf =  tDevengo * getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias));
+		double irpf =  tDevengo * getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategoria(), categorias));
 		
 		double tDeduccion = ss+desempleo+formacion+irpf;
-		
+		System.out.println(t.getCategoria());
 		double liquidoPercibir = tDevengo - tDeduccion;
 	//	System.out.println("Salario Base: "+salarioBase+"\n"+"Complemento: "+complemento+"\n"+"Antiguedad: "+antiguedad+"\nProrrateo: "+prorrateo+"\n");
 	//	System.out.println("Total Devengo: " + tDevengo + "SS: " + ss + "Desempleo: " + desempleo + "Formacion: " + formacion + "IRPF: " + irpf + "Total Deduccion: "+tDeduccion);
@@ -164,15 +164,15 @@ Nomina nomina = new Nomina();
 		
 
 
-nomina.setMes(fecha.getMonth());
-nomina.setAnio(fecha.getYear());
+nomina.setMes(fecha.getMonth()+1);
+nomina.setAnio(Integer.parseInt(fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length())));
 nomina.setNumeroTrienios((int)(getMesesTrabajados(t.getFechaAlta(), fecha)-1)/36);
 nomina.setImporteTrienios(antiguedad);
 nomina.setImporteSalarioMes(salarioBase);
 nomina.setImporteComplementoMes(complemento);
 nomina.setValorProrrateo(prorrateo);
 nomina.setBrutoAnual(brutoAnual);
-nomina.setIrpf(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategorias(), categorias)));
+nomina.setIrpf(getIRPF(t.getFechaAlta(),fecha, c.findCategoria(t.getCategoria(), categorias)));
 nomina.setImporteIrpf(irpf);
 nomina.setBaseEmpresario(empresarioBase);
 nomina.setSeguridadSocialEmpresario(0.236);
@@ -235,7 +235,7 @@ nomina.setTrabajadorbbdd(t);
 	
 	public double getSalarioBase(Trabajadorbbdd t) {
 		for(int i=0;i<categorias.size();i++) {
-			if(categorias.get(i).getNombreCategoria().equals(t.getCategorias())){
+			if(categorias.get(i).getNombreCategoria().equals(t.getCategoria())){
 				return categorias.get(i).getSalarioBaseCategoria();
 			}
 		}
@@ -244,7 +244,7 @@ nomina.setTrabajadorbbdd(t);
 	
 	public double getComplemento(Trabajadorbbdd t) {
 		for(int i=0;i<categorias.size();i++) {
-			if(categorias.get(i).getNombreCategoria().equals(t.getCategorias())){
+			if(categorias.get(i).getNombreCategoria().equals(t.getCategoria())){
 				return categorias.get(i).getComplementoCategoria();
 			}
 		}
@@ -278,32 +278,32 @@ nomina.setTrabajadorbbdd(t);
 		int importeBruto = asignarTrienio(trieniosCompletos);
 		int mesesSinTrienio = mesesTrabajados%36;
 		int mesesRestantes = 36 - mesesSinTrienio;
-		System.out.println("Meses Restantes "+mesesRestantes);
+		//System.out.println("Meses Restantes "+mesesRestantes);
 		if(mesesRestantes<6) {
-			System.out.println("Entro en el 1º");
+		//	System.out.println("Entro en el 1º");
 			brutoAnual = mesesRestantes*importeBruto+(14-mesesRestantes)*asignarTrienio(trieniosCompletos+1);
 		}else if((6<=mesesRestantes)&&(mesesRestantes<=11)){
-		System.out.println("Entro en el 2º");
+	//	System.out.println("Entro en el 2º");
 
 			brutoAnual = (mesesRestantes+1)*importeBruto+(14-mesesRestantes-1)*asignarTrienio(trieniosCompletos+1);
 
 		}else if(mesesRestantes==12){
-			System.out.println("Entro en el 3º");
+		//	System.out.println("Entro en el 3º");
 
 			brutoAnual = (mesesRestantes+2)*importeBruto+(14-mesesRestantes-2)*asignarTrienio(trieniosCompletos+1);
 
 		}else {
-			System.out.println("Entro en el 4º");
+		//	System.out.println("Entro en el 4º");
 
 			brutoAnual =importeBruto*14;
 		}
 		this.brutoAnual = brutoAnual;
-		System.out.println("Bruto anueal: "+brutoAnual);
+		//System.out.println("Bruto anueal: "+brutoAnual);
 		double total = c.getSalarioBaseCategoria()+c.getComplementoCategoria() +brutoAnual;
-		System.out.println("Total: "+total);
+		//System.out.println("Total: "+total);
 
 		double irpf = getRetencion(total);
-		System.out.println("retencion: "+irpf);
+		//System.out.println("retencion: "+irpf);
 
 		
 		return irpf;

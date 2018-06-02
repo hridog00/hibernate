@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.itextpdf.awt.geom.Rectangle;
@@ -65,13 +66,13 @@ public class PdfGenerator {
 		cellCabeceraDcha.addElement(new Paragraph("IBAN: "+ trabajador.getIban()));
 		
 		
-		cellCabeceraDcha.addElement(new Paragraph("Categoria: "+ trabajador.getCategorias()));
+		cellCabeceraDcha.addElement(new Paragraph("Categoria: "+ trabajador.getCategoria()));
 		
 		
 		cellCabeceraDcha.addElement(new Paragraph("Bruto anual: "+ n.getBrutoAnual()));
 		
 		
-		cellCabeceraDcha.addElement(new Paragraph("Fecha de Alta: "+ trabajador.getFechaAlta()));
+		cellCabeceraDcha.addElement(new Paragraph("Fecha de Alta: "+ new SimpleDateFormat("yyyy-MM-dd").format(trabajador.getFechaAlta())));
 		cellCabeceraDcha.setHorizontalAlignment(PdfPCell.ALIGN_RIGHT);
 		
 		tableDatosEmpresa.addCell(cell1); 
@@ -122,8 +123,11 @@ public class PdfGenerator {
 
 		 Font fontTit = new Font(FontFamily.HELVETICA, 12, Font.BOLDITALIC,
 		GrayColor.BLACK);
-
-		 Paragraph fechLit = new Paragraph("Nomina "+mes+" "+fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length() ) ,fontTit);
+		 String titulo = "Nomina  "+mes+" "+fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length() ) ;
+		 if(extra) {
+			 titulo = "Nomina Extra"+mes+" "+fecha.toString().substring(fecha.toString().length()-4,fecha.toString().length() ) ;
+		 }
+		 Paragraph fechLit = new Paragraph(titulo ,fontTit);
 		 fechLit.setAlignment(Element.ALIGN_CENTER);
 		 PdfPCell cellfecha2 = new PdfPCell();
 		 cellfecha2.addElement(fechLit);

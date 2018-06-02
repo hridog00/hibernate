@@ -68,6 +68,10 @@ session = HibernateUtil.getSessionFactory().openSession();
 				if(query.getResultList().isEmpty()) {
 					session.save(empresas.get(i));
 
+				}else {
+					Empresas e = (Empresas) query.getResultList().get(0);
+					empresas.get(i).setIdEmpresa(e.getIdEmpresa());
+					session.merge(empresas.get(i));
 				}
 
 			}
@@ -238,6 +242,12 @@ session = HibernateUtil.getSessionFactory().openSession();
 			if(query.getResultList().isEmpty()) {
 				session.save(nominas.get(i));
 
+			}else {
+					Nomina n = (Nomina) query.getResultList().get(0);
+					nominas.get(i).setIdNomina(n.getIdNomina());
+					session.merge(nominas.get(i));
+				
+				
 			}
 
 		}
